@@ -4,6 +4,17 @@ from flask_login import UserMixin
 from datetime import datetime
 from . import login_manager
 
+
+# roles table
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    users = db.relationship('User', backref='role', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
+
 # users table
 
 
@@ -68,7 +79,7 @@ class Post(db.Model):
         posts = Post.query.all()
         return posts
 
-    # get user posts
+    # get user posts by user id
     @classmethod
     def get_user_posts(cls, user_id):
         posts = Post.query.filter_by(user_id=user_id)
@@ -86,5 +97,53 @@ class Post(db.Model):
         posts = Post.query.filter_by(category_id=category_id)
         return posts
 
+    # get post comments
+    def get_comments(self):
+        comments = Comment.query.filter_by(post_id=self.id)
+        return comments
+
+    # function to update specific post by id
+    # def update_post(self):
+    #     db.session.commit()
+
+    # delete post
+    def delete_post(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def __repr__(self):
         return f'Post {self.title}'
+
+
+# comments table
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String())
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls):
+        comments = Comment.query.all()
+        return comments
+
+    @classmethod
+    def get_comments_by_post(cls, post_id):
+        comments = Comment.query.filter_by(post_id=post_id)
+        return comments
+
+    # delete comment
+    @classmethod
+    def delete_comment(cls, id):
+        comment = Comment.query.filter_by(id=id).first()
+        db.session.delete(comment)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Comment {self.content}'
