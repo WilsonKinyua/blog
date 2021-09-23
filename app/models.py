@@ -55,6 +55,7 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     title = db.Column(db.String(255))
     content = db.Column(db.String())
+    image_path = db.Column(db.String())
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
@@ -65,6 +66,24 @@ class Post(db.Model):
     @classmethod
     def get_posts(cls):
         posts = Post.query.all()
+        return posts
+
+    # get user posts
+    @classmethod
+    def get_user_posts(cls, user_id):
+        posts = Post.query.filter_by(user_id=user_id)
+        return posts
+
+    # get post by id
+    @classmethod
+    def get_post(cls, id):
+        post = Post.query.filter_by(id=id).first()
+        return post
+
+    # get post by category
+    @classmethod
+    def get_post_by_category(cls, category_id):
+        posts = Post.query.filter_by(category_id=category_id)
         return posts
 
     def __repr__(self):
