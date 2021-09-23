@@ -28,6 +28,7 @@ class User(UserMixin, db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship('Post', backref='user', lazy='dynamic')
     comments = db.relationship('Comment', backref='user', lazy='dynamic')
 
@@ -52,6 +53,7 @@ class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship('Post', backref='category', lazy='dynamic')
 
     def __repr__(self):
@@ -147,3 +149,24 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f'Comment {self.content}'
+
+# subscribers table
+
+
+class Subscriber(db.Model):
+    __tablename__ = 'subscribers'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def save_subscriber(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_subscribers(cls):
+        subscribers = Subscriber.query.all()
+        return subscribers
+
+    def __repr__(self):
+        return f'Subscriber {self.email}'
