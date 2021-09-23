@@ -192,3 +192,15 @@ class Subscriber(db.Model):
 
     def __repr__(self):
         return f'Subscriber {self.email}'
+
+# quote class
+
+
+class Quote:
+    """
+    Quote class to define quote objects
+    """
+
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote
