@@ -34,3 +34,38 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
+# posts category table
+
+
+class Category(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    posts = db.relationship('Post', backref='category', lazy='dynamic')
+
+    def __repr__(self):
+        return f'Category {self.name}'
+
+
+# posts table
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    title = db.Column(db.String(255))
+    content = db.Column(db.String())
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
+
+    def save_post(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_posts(cls):
+        posts = Post.query.all()
+        return posts
+
+    def __repr__(self):
+        return f'Post {self.title}'
