@@ -9,6 +9,10 @@ body {
   --main-color: #c5015f;
 }
 
+.btn-default{
+  margin-top: 10px;
+}
+
 a,
 a:hover,
 a:focus {
@@ -194,6 +198,14 @@ a:focus {
   margin-top: 10px;
 }
 
-.login-container .help-block {
-  color: #ff0000;
+.form-group .help-block {
+  color: red;
 }
+
+.text-dark {
+  color: #032c31;
+}
+
+/* .login-container .help-block {
+  color: #ff0000;
+} */

@@ -13,13 +13,13 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         if User.query.filter_by(email=form.email.data).first():
-            flash('Email already exists')
+            flash('Email already exists', 'danger')
             return redirect(url_for('auth.register'))
         elif User.query.filter_by(username=form.username.data).first():
-            flash('Username already exists')
+            flash('Username already exists', 'danger')
             return redirect(url_for('auth.register'))
         elif len(form.password.data) < 8:
-            flash('Password must be at least 8 characters')
+            flash('Password must be at least 8 characters', 'danger')
             return redirect(url_for('auth.register'))
 
         else:
@@ -28,7 +28,7 @@ def register():
                         password=form.password.data)
             db.session.add(user)
             db.session.commit()
-            flash('Account created successfully. Please Login')
+            flash('Account created successfully. Please Login', 'success')
             return redirect(url_for('auth.login'))
     title = "Create New Account"
     return render_template('auth/register.html', form=form, title=title)
@@ -43,7 +43,7 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('main.index'))
-        flash('Invalid username or password')
+        flash('Invalid username or password', 'danger')
     title = "Login to your account"
     return render_template('auth/login.html', form=form, title=title)
 
@@ -53,5 +53,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('You have been logged out.')
+    flash('You have been logged out.', 'success')
     return redirect(url_for('main.index'))

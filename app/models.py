@@ -22,6 +22,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), index=True)
+    name = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True, index=True)
     password_hash = db.Column(db.String(255))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
@@ -192,15 +193,3 @@ class Subscriber(db.Model):
 
     def __repr__(self):
         return f'Subscriber {self.email}'
-
-# quote class
-
-
-class Quote:
-    """
-    Quote class to define quote objects
-    """
-
-    def __init__(self, author, quote):
-        self.author = author
-        self.quote = quote
