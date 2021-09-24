@@ -33,7 +33,8 @@ def profile(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
-
+    # get all categories
+    categories = Category.query.all()
     # update profile form
     form = ProfileForm()
     if form.validate_on_submit():
@@ -65,7 +66,13 @@ def profile(username):
 
     title = 'My Account Profile'
 
-    return render_template("profile/profile.html", user=user, form=form, title=title, password_form=password_form)
+    return render_template("profile/profile.html",
+                           user=user,
+                           form=form,
+                           title=title,
+                           password_form=password_form,
+                           categories=categories
+                           )
 
 # update profile picture
 
@@ -87,3 +94,43 @@ def update_pic(username):
     else:
         flash('You have not uploaded a profile picture', 'danger')
         return redirect(url_for('main.profile', username=username))
+
+# create a new post
+
+
+@main.route('/post/new', methods=['GET', 'POST'])
+@login_required
+def new_post():
+    """
+        View new post function that returns the new post page and its data
+    """
+    title = request.args.get('title')
+    category_id = request.args.get('category_id')
+    content = request.args.get('content')
+    user_id = request.args.get('user_id')
+
+    print(title, category_id, content, user_id)
+
+    # filename = photos.save(request.files['photo'])
+    # path = f'photos/{filename}'
+
+    post = Post(
+        title=title,
+        content=content,
+        category_id=category_id,
+        user_id=user_id,
+        # image_path=path
+    )
+
+    db.session.add(post)
+    db.session.commit()
+    # if photo request is not empty then save the photo to the database and update the post image path to the photo path
+    # if request.files['photo']:
+    #     filename = photos.save(request.files['photo'])
+    #     path = f'photos/{filename}'
+    #     post.image_path = path
+    #     db.session.commit()
+
+    flash('You have successfully created a new post', 'success')
+
+    return redirect(url_for('main.profile', username=current_user.username))
