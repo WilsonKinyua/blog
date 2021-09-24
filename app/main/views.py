@@ -5,6 +5,7 @@ from ..models import User, Role, Post, Comment, Category
 from .. import db, photos
 # from .forms import UpdateProfileForm, CommentForm, CategoryForm
 from slugify import slugify
+from ..requests import get_quotes
 
 
 # homepage
@@ -17,5 +18,7 @@ def index():
     posts = Post.query.order_by(Post.created_at.desc()).all()
     # get all categories
     categories = Category.query.all()
+    # get random quote
+    quote = get_quotes()
 
-    return render_template('index.html', posts=posts, categories=categories)
+    return render_template('index.html', posts=posts, categories=categories, quote=quote)
