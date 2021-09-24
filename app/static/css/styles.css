@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+:root {
+  --main-color: #c5015f;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: black;
+}
+
+.fa {
+  color: #c5015f;
+  font-size: 15px;
+}
+
+.fade-item {
+  font-weight: 400;
+  color: rgb(63, 63, 63);
+  text-transform: uppercase;
+}
+
+.btn,
+.btn:hover {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.btn-outline-dark,
+.btn-outline-dark:hover {
+  background-color: transparent;
+  color: black;
+}
+
+.b-r {
+  text-transform: uppercase;
+  border-radius: 20px;
+  padding: 7px;
+}
+
+/* navbar */
+.navbar-brand {
+  font-size: 2rem;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Lobster", cursive;
+}
+.navbar-brand:hover {
+  color: black;
+}
+.navbar-expand-lg {
+  background: #02515c;
+}
+
+.navbar-expand-lg li a {
+  color: white;
+}
+
+.navbar-toggler {
+  background-color: white;
+}
+.nav-right {
+  margin-right: 50px;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.nav-link {
+  margin-right: 5px;
+}
+
+/* homepage */
+.homepage {
+  background-image: url("../img/1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* height: 100vh; */
+}
+
+.homepage-content {
+  margin: 170px 0px 170px 0px;
+}
+
+.homepage-content h3 {
+  letter-spacing: 1px;
+  font-size: 1.8rem;
+  font-family: "Poppins", sans-serif;
+}
+.home {
+  background-color: rgba(39, 39, 39, 0.3);
+  color: white;
+}
+
+.card {
+  background: #fff none repeat scroll 0 0;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 11px 5px rgb(103 58 183 / 10%);
+  margin-bottom: 1px;
+  padding: 1px 1px;
+  transition: all 300ms ease-in-out;
+  -webkit-transition: all 300ms ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 0 11px 5px rgba(70, 41, 121, 0.25);
+  background: linear-gradient(-19deg, rgba(235, 174, 8, 0.95) 0px);
+}
+
+.card h5 {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+/* search button */
+
+/* .search input {
+  border: 1px solid #eaeff4;
+  border-radius: 2px;
+} */
+
+.categories .btn {
+  margin: 2px;
+}
+
+
+/* side post */
+.side-post-image {
+  height: 70px;
+  border-radius: 5px;
+}
+
+.tops span {
+  font-size: 13px;
+}
+
+/* footer */
+.footer {
+  padding: 0.5rem 0;
+  border-top: 1px solid #f1f2f3;
+  background: #032c31;
+}
+
+.footer p {
+  margin: 15px;
+  color: white;
+  text-transform: uppercase;
+}

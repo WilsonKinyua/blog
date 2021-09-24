@@ -14,7 +14,7 @@ def index():
         View root page function that returns the index page and its data
     """
     # get all posts
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    posts = Post.query.order_by(Post.created_at.desc()).all()
     # get all categories
     categories = Category.query.all()
 
