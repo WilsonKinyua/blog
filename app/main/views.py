@@ -42,14 +42,8 @@ def profile(username):
         user.email = form.email.data
         user.username = form.username.data
 
-    
-        # update profile picture
-        # if form.profile_pic.data:
-        #     filename = photos.save(form.profile_pic.data)
-        #     user.profile_pic = photos.url(filename)
-
         db.session.commit()
-        
+
         flash('You have successfully updated your profile', 'success')
 
         return redirect(url_for('main.profile', username=user.username))
@@ -60,3 +54,24 @@ def profile(username):
     title = 'My Account Profile'
 
     return render_template("profile/profile.html", user=user, form=form, title=title)
+
+# update profile picture
+
+
+@main.route('/profile/<username>/update/pic', methods=['POST'])
+@login_required
+def update_pic(username):
+    """
+        View update profile picture function that returns the update profile picture page and its data
+    """
+    user = User.query.filter_by(username=username).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+        flash('You have successfully uploaded a profile picture', 'success')
+        return redirect(url_for('main.profile', username=username))
+    else:
+        flash('You have not uploaded a profile picture', 'danger')
+        return redirect(url_for('main.profile', username=username))

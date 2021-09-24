@@ -211,7 +211,13 @@ a:focus {
 } */
 
 /* profile page */
-
-/* .profile .card-img-top {
-  height: 200px;
-} */
+.profile .card-img-top {
+  border-radius: 50%;
+  display: block;
+  float: none;
+  height: 180px;
+  line-height: 32px;
+  margin: 0 auto;
+  width: 180px;
+  margin-top: 6px;
+}
