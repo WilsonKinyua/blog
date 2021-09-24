@@ -22,3 +22,16 @@ def index():
     quote = get_quotes()
 
     return render_template('index.html', posts=posts, categories=categories, quote=quote)
+
+
+# profile page
+@main.route('/profile/<uname>')
+def profile(uname):
+    """
+        View profile page function that returns the profile page and its data
+    """
+    user = User.query.filter_by(username=uname).first()
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user=user)

@@ -155,3 +155,45 @@ a:focus {
   color: white;
   text-transform: uppercase;
 }
+
+/* login page */
+.container-header {
+  text-align: center;
+  padding: 25px;
+  background-color: #f0f0f0;
+}
+
+.login-card {
+  border: 1px solid #d3ced2;
+  padding: 20px;
+  margin: 2em 0;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.login-container {
+  background-color: white;
+}
+
+.login-container label {
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.login-container .checkbox {
+  margin-top: 10px;
+}
+
+.login-container p {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.login-container .form-group {
+  margin-top: 10px;
+}
+
+.login-container .help-block {
+  color: #ff0000;
+}
