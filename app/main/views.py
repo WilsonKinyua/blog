@@ -113,7 +113,6 @@ def new_post():
     content = request.args.get('content')
     user_id = request.args.get('user_id')
 
-
     # filename = photos.save(request.files['photo'])
     # path = f'photos/{filename}'
 
@@ -159,4 +158,21 @@ def update_post(id):
     post.category_id = category_id
     post.user_id = user_id
     db.session.commit()
+    return redirect(url_for('main.profile', username=current_user.username))
+
+# delete post
+
+
+@main.route('/post/<int:id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_post(id):
+    """
+        View delete post function that returns the delete post page and its data
+    """
+    post = Post.get_post(id)
+    # if post.user_id != current_user:
+    #     abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('You have successfully deleted the post', 'success')
     return redirect(url_for('main.profile', username=current_user.username))
