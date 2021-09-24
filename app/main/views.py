@@ -30,7 +30,10 @@ def profile(username):
     """
         View profile page function that returns the profile page and its data
     """
+    # get current user posts
     user = User.query.filter_by(username=username).first()
+    posts = Post.get_user_posts(
+        user.id).order_by(Post.created_at.desc()).all()
     if user is None:
         abort(404)
     # get all categories
@@ -71,7 +74,8 @@ def profile(username):
                            form=form,
                            title=title,
                            password_form=password_form,
-                           categories=categories
+                           categories=categories,
+                           posts=posts
                            )
 
 # update profile picture
@@ -109,7 +113,6 @@ def new_post():
     content = request.args.get('content')
     user_id = request.args.get('user_id')
 
-    print(title, category_id, content, user_id)
 
     # filename = photos.save(request.files['photo'])
     # path = f'photos/{filename}'
@@ -131,6 +134,29 @@ def new_post():
     #     post.image_path = path
     #     db.session.commit()
 
-    flash('You have successfully created a new post', 'success')
+    flash('You have successfully created a new post. Proceed and upload the post photo image to display on homepage', 'success')
 
+    return redirect(url_for('main.profile', username=current_user.username))
+
+
+# update post
+@main.route('/post/<int:id>/update', methods=['GET', 'POST'])
+@login_required
+def update_post(id):
+    """
+        View update post function that returns the update post page and its data
+    """
+    post = Post.get_post(id)
+    # if post.user_id != current_user:
+    #     abort(403)
+    title = request.args.get('title')
+    category_id = request.args.get('category_id')
+    content = request.args.get('content')
+    user_id = request.args.get('user_id')
+    # update post
+    post.title = title
+    post.content = content
+    post.category_id = category_id
+    post.user_id = user_id
+    db.session.commit()
     return redirect(url_for('main.profile', username=current_user.username))

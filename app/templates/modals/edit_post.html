@@ -1,25 +1,26 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editPostModal{{post.id}}" tabindex="-1" aria-labelledby="editPostModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Post</h5>
+                <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{url_for('main.new_post')}}" enctype="multipart/form-data">
+                <form action="{{ url_for('main.update_post',id=post.id)}}" enctype="multipart/form-data">
                     <div class="row">
                         <input type="hidden" name="user_id" value="{{ current_user.id}}">
                         <div class="col-md-7">
                             <div class="mb-2">
                                 <label for="Title" class="mb-2">Title <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="title" >
+                                <input type="text" class="form-control" name="title" value="{{post.title}}">
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="mb-2">
                                 <label for="Category" class="mb-2">Category <span class="text-danger">*</span></label>
-                                <select class="form-control" name="category_id" >
+                                <select class="form-control" name="category_id">
                                     {% for category in categories %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                     {% endfor %}
@@ -27,17 +28,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="mb-2">
-                        <label for="pitch photo" class="mb-3">Post Photo
-                        </label>
-                        <input type="file" name="photo" class="form-control" >
-                    </div> -->
                     <div class="mb-2">
                         <label for="Content" class="mb-2">Post <span class="text-danger">*</span></label>
-                        <textarea class="form-control ckeditor" name="content" rows="5" ></textarea>
+                        <textarea class="form-control ckeditor" name="content" rows="5">{{post.content}}</textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn">Save changes</button>
+                        <button type="submit" class="btn">Update Post</button>
                     </div>
                 </form>
             </div>
