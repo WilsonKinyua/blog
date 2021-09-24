@@ -51,14 +51,14 @@
                         </h4>
                         <p>{{ current_user.username }}</p>
                         <p>
-                            {% if current_user.about_me %}
-                            <small>{{ current_user.about_me }}</small>
+                            {% if current_user.bio %}
+                            <small>{{ current_user.bio }}</small>
                             {% else %}
                             <span class="text-danger">No about me</span>
                             {% endif %}
                         </p>
                         <h6>Joined on: <span class="badge rounded-pill bg-secondary text-white">
-                                {{ current_user.member_since.strftime('%d %b %Y') }}</span></h6>
+                                {{ current_user.created_at.strftime('%d %b %Y') }}</span></h6>
                         <!-- logout button -->
 
                     </div>
@@ -67,7 +67,7 @@
                     <div class="col-md-12">
                         <div class="card p-2">
                             {% if user == current_user %}
-                            <form action="{{url_for('main.update_profile_pic',uname=user.username)}}" method="post"
+                            <form action="" method="post"
                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -106,15 +106,15 @@
                                     <i class="fa fa-plus"></i> Add a Pitch
                                 </button>
                                 <!-- Modal -->
-                                {% include 'modals/add_pitch.html' %}
+                               
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <!-- includes pitches.html from templates folder -->
-                        {% include 'pitches.html' %}
+                       
                     </div>
-                    <!-- <a href="{{ url_for('main.add_category')}}">Add Category</a> -->
+                    
                 </div>
             </div>
         </div>

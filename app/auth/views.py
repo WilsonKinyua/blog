@@ -25,7 +25,7 @@ def register():
         else:
             user = User(email=form.email.data,
                         username=form.username.data,
-                        password=form.password.data)
+                        password=form.password.data,name=form.name.data)
             db.session.add(user)
             db.session.commit()
             flash('Account created successfully. Please Login', 'success')

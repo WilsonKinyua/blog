@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.fields.simple import TextAreaField
 from wtforms.validators import Required, Email, Length, EqualTo
 from ..models import Post, Comment, Subscriber
 from wtforms import ValidationError
@@ -22,3 +23,14 @@ class SubscriberForm(FlaskForm):
 class CategoryForm(FlaskForm):
     name = StringField('Category', validators=[Required()])
     submit = SubmitField('Submit')
+
+
+# profile form
+class ProfileForm(FlaskForm):
+    name = StringField('Name', validators=[Required()])
+    username = StringField('Username', validators=[Required()])
+    email = StringField('Email', validators=[Required(), Email()])
+    # password = PasswordField('Password', validators=[Required(), Length(6, 64), EqualTo('password2', message='Passwords must match')])
+    # password2 = PasswordField('Confirm Password', validators=[Required()])
+    bio = TextAreaField('About Me')
+    submit = SubmitField('Update Profile')
