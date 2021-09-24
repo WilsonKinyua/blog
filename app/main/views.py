@@ -3,7 +3,7 @@ from . import main
 from flask_login import login_required, current_user
 from ..models import User, Role, Post, Comment, Category
 from .. import db, photos
-from .forms import ProfileForm, CommentForm, CategoryForm
+from .forms import ProfileForm, CommentForm, CategoryForm, PasswordForm
 from slugify import slugify
 from ..requests import get_quotes
 
@@ -51,9 +51,21 @@ def profile(username):
     form.email.data = user.email
     form.username.data = user.username
     form.bio.data = user.bio
+
+    # update password
+    password_form = PasswordForm()
+    if password_form.validate_on_submit():
+        if current_user.verify_password(password_form.old_password.data):
+            current_user.password = password_form.password.data
+            db.session.commit()
+            flash('You have successfully updated your password', 'success')
+            return redirect(url_for('main.profile', username=user.username))
+        else:
+            flash('Invalid password', 'danger')
+
     title = 'My Account Profile'
 
-    return render_template("profile/profile.html", user=user, form=form, title=title)
+    return render_template("profile/profile.html", user=user, form=form, title=title, password_form=password_form)
 
 # update profile picture
 
