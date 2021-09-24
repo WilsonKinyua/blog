@@ -1,0 +1,25 @@
+<!-- Modal -->
+<div class="modal fade" id="editPostImageModal{{post.id}}" tabindex="-1" aria-labelledby="editPostImageModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPostImageModalLabel">Edit Post Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('main.update_post_image',id=post.id)}}" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="file" name="photo" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn">Upload Image</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

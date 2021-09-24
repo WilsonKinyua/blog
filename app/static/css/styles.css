@@ -221,3 +221,9 @@ a:focus {
   width: 180px;
   margin-top: 6px;
 }
+
+.posts .img-fluid{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}

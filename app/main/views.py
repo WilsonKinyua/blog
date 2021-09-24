@@ -176,3 +176,21 @@ def delete_post(id):
     db.session.commit()
     flash('You have successfully deleted the post', 'success')
     return redirect(url_for('main.profile', username=current_user.username))
+
+# update post image
+
+
+@main.route('/post/<int:id>/update/image', methods=['GET', 'POST'])
+@login_required
+def update_post_image(id):
+    """
+        View update post image function that returns the update post image page and its data
+    """
+    post = Post.query.filter_by(id=id).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        post.image_path = path
+        db.session.commit()
+        flash('You have successfully uploaded a post image', 'success')
+        return redirect(url_for('main.profile', username=current_user.username))
