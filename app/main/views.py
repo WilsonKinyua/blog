@@ -41,8 +41,12 @@ def single_post(id):
     # add comment form
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(content=form.content.data,
-                          user_id=current_user.id, post_id=post.id)
+        comment = Comment(
+            content=form.content.data,
+            user_id=current_user.id,
+            post_id=post.id,
+            post_owner_id=post.user_id
+        )
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been posted!', 'success')
@@ -76,6 +80,9 @@ def profile(username):
     user = User.query.filter_by(username=username).first()
     posts = Post.get_user_posts(
         user.id).order_by(Post.created_at.desc()).all()
+    # get all comments created by other users on current user posts
+    comments = Comment.get_my_posts_comments(user.id)
+
     if user is None:
         abort(404)
     # get all categories
@@ -127,7 +134,8 @@ def profile(username):
                            password_form=password_form,
                            categories=categories,
                            posts=posts,
-                           category_form=category_form
+                           category_form=category_form,
+                           comments=comments
                            )
 
 # update profile picture
@@ -235,6 +243,22 @@ def delete_post(id):
     db.session.delete(post)
     db.session.commit()
     flash('You have successfully deleted the post', 'success')
+    return redirect(url_for('main.profile', username=current_user.username))
+
+
+# delete comment
+@main.route('/comment/<int:id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_comment(id):
+    """
+        View delete comment function that returns the delete comment page and its data
+    """
+    comment = Comment.get_comment(id)
+    # if comment.user_id != current_user:
+    #     abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('You have successfully deleted the comment', 'success')
     return redirect(url_for('main.profile', username=current_user.username))
 
 # update post image

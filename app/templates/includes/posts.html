@@ -36,12 +36,12 @@
             <td>{{ post.title }}</td>
             <td>
                 <span class="badge rounded-pill bg-primary">
-                    0
+                    {{ post.comments.count() }}
                 </span>
             </td>
             <td>{{ post.created_at.strftime('%d %b %Y') }}</td>
             <td>
-                <a href="" class="text-danger p-1" title="View Post">
+                <a href="{{ url_for('main.single_post',id=post.id)}}" class="text-danger p-1" title="View Post">
                     <i class="fas fa-eye"></i>
                 </a>
                 <a type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#editPostModal{{post.id}}">

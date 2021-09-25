@@ -1,0 +1,37 @@
+<table class="table table-responsive table-hover posts">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Post</th>
+            <th scope="col">Author</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for comment in comments %}
+        <tr>
+
+            <td>{{ loop.index }}</td>
+            <td>
+                {{ comment.post.title }}
+            </td>
+            <td>
+                <span class="badge bg-warning">
+                    {{ comment.user.name }}
+                </span>
+            </td>
+            <td>
+                {{ comment.content }}
+            </td>
+            <td>{{ comment.created_at.strftime('%d %b %Y') }}</td>
+            <td>
+                <a href="{{ url_for('main.delete_comment',id=comment.id)}}" class="text-danger" title="Delete Post">
+                    <small><i class="fa fa-trash"></i></small>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

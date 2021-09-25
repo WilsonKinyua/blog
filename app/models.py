@@ -152,6 +152,7 @@ class Comment(db.Model):
     content = db.Column(db.String())
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_owner_id = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save_comment(self):
@@ -166,6 +167,12 @@ class Comment(db.Model):
     @classmethod
     def get_comments_by_post(cls, post_id):
         comments = Comment.query.filter_by(post_id=post_id)
+        return comments
+
+    # get all comments created by other users on my posts only 
+    @classmethod
+    def get_my_posts_comments(cls, user_id):
+        comments = Comment.query.filter_by(post_owner_id=user_id)
         return comments
 
     # delete comment
