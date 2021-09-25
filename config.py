@@ -4,6 +4,7 @@ import cloudinary
 
 class Config:
 
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
@@ -41,7 +42,6 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://developer:developerwilson@localhost/blog'
     DEBUG = True
 
 
