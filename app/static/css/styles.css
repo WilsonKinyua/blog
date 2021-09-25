@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap");
+
 body {
   margin: 0;
   padding: 0;
@@ -8,8 +10,10 @@ body {
 :root {
   --main-color: #c5015f;
 }
-
-.btn-default{
+.headings {
+  font-family: "Merienda", cursive;
+}
+.btn-default {
   margin-top: 10px;
 }
 
@@ -142,7 +146,6 @@ a:focus {
   margin: 2px;
 }
 
-
 /* side post */
 .side-post-image {
   height: 70px;
@@ -229,8 +232,64 @@ a:focus {
   margin-top: 6px;
 }
 
-.posts .img-fluid{
+.posts .img-fluid {
   height: 50px;
   width: 50px;
   border-radius: 50%;
+}
+
+/* single post styles */
+.single-top-header {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.single-content {
+  padding: 2rem;
+  margin-top: 100px;
+}
+.single-top-header .header {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.author-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.blog-container {
+  font-weight: 300;
+  line-height: 30px;
+  font-size: 18px;
+  color: #757575;
+}
+
+/* comments container */
+.comments-container {
+  background-color: #fafbfb;
+  padding: 20px;
+}
+
+.comment-author-img {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.comment-p {
+  font-size: 0.82031rem;
+  font-weight: 100;
+}
+.comment-author {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.comment-author span {
+  font-size: 14px;
+  font-weight: 300;
 }
