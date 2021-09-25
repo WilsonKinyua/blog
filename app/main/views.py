@@ -6,6 +6,7 @@ from .. import db, photos
 from .forms import ProfileForm, CommentForm, CategoryForm, PasswordForm
 from slugify import slugify
 from ..requests import get_quotes
+from ..email import send_email
 # import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
@@ -200,6 +201,12 @@ def new_post():
     #     path = f'photos/{filename}'
     #     post.image_path = path
     #     db.session.commit()
+
+    # sending emails to all users in subscribers table when a new post is created
+    subscribers = Subscriber.query.all()
+    for subscriber in subscribers:
+        send_email("New post Alert 😃", "emails/new_post", subscriber.email,
+                   user=subscriber, post=post)
 
     flash('You have successfully created a new post. Proceed and upload the post photo image to display on homepage', 'success')
 

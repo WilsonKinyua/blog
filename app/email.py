@@ -3,8 +3,8 @@ from flask import render_template
 from . import mail
 
 
-def send_email(subject,template,to,**kwargs):
-    sender_email = 'wilsonkinyuam@gmail.com'
+def send_email(subject, template, to, **kwargs):
+    sender_email = 'blogs@newpress.com'
 
     msg = Message(subject, sender=sender_email, recipients=[to])
     msg.body = render_template(template + ".txt", **kwargs)
