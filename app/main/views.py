@@ -98,13 +98,23 @@ def profile(username):
 
     title = 'My Account Profile'
 
+    # add category form
+    category_form = CategoryForm()
+    if category_form.validate_on_submit():
+        category = Category(name=category_form.name.data)
+        db.session.add(category)
+        db.session.commit()
+        flash('You have successfully added a new category', 'success')
+        return redirect(url_for('main.profile', username=user.username))
+
     return render_template("profile/profile.html",
                            user=user,
                            form=form,
                            title=title,
                            password_form=password_form,
                            categories=categories,
-                           posts=posts
+                           posts=posts,
+                           category_form=category_form
                            )
 
 # update profile picture
