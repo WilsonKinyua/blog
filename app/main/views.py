@@ -23,8 +23,10 @@ def index():
     categories = Category.query.all()
     # get random quote
     quote = get_quotes()
+    # get latest 5 posts
+    latest_posts = Post.query.order_by(Post.created_at.desc()).limit(4)
 
-    return render_template('index.html', posts=posts, categories=categories, quote=quote)
+    return render_template('index.html', posts=posts, categories=categories, quote=quote, latest_posts=latest_posts)
 
 
 # profile page

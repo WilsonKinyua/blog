@@ -58,45 +58,35 @@
                     <div class="card p-2">
                         <div class="col-md-12 categories">
                             <h5>Categories</h5>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">tags</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">tags</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">tags</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">Business</a>
-                            <a class="btn btn-sm btn-outline-dark">tags</a>
-
+                            {% for category in categories %}
+                            <a class="btn btn-sm btn-outline-dark" href="{{ category.url }}">{{ category.name }}</a>
+                            {% endfor %}
+                            <!-- <a class="btn btn-sm btn-outline-dark">Business</a> -->
                         </div>
                     </div>
                 </div>
                 <div class="card p-2 row mt-3 tops">
                     <h5>TOP POSTS</h5>
+                    {% for post in latest_posts %}
                     <a href="">
                         <hr>
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="http://laravelblogs.herokuapp.com/images/13.jpg" alt=""
-                                    class="side-post-image">
+                                <!-- check if post image exists -->
+                                {% if post.image_path %}
+                                <img src="{{ post.image_path }}" alt="{{ post.title }}" class="side-post-image">
+                                {% else %}
+                                <img src="https://www.freeiconspng.com/uploads/no-image-icon-11.PNG"
+                                    alt="{{ post.title }}" class="side-post-image">
+                                {% endif %}
                             </div>
                             <div class="col-md-8">
                                 <p>
-                                    Why Some People Don’t Feel Lonely <br>
+                                    {{ post.title }}
+                                    <br>
                                     <small>
                                         <span>
-                                            <i class="fa fa-user" style="font-size: 10px;"></i> 23 August 2021
+                                            <i class="fa fa-user" style="font-size: 10px;"></i> {{ post.created_at.strftime('%d %b %Y') }}
                                         </span>
                                     </small>
                                 </p>
@@ -104,89 +94,13 @@
                         </div>
                         <hr>
                     </a>
-                    <a href="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="http://laravelblogs.herokuapp.com/images/13.jpg" alt=""
-                                    class="side-post-image">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Why Some People Don’t Feel Lonely <br>
-                                    <small>
-                                        <span>
-                                            <i class="fa fa-user" style="font-size: 10px;"></i> 23 August 2021
-                                        </span>
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </a>
-                    <a href="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="http://laravelblogs.herokuapp.com/images/13.jpg" alt=""
-                                    class="side-post-image">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Why Some People Don’t Feel Lonely <br>
-                                    <small>
-                                        <span>
-                                            <i class="fa fa-user" style="font-size: 10px;"></i> 23 August 2021
-                                        </span>
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </a>
-                    <a href="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="http://laravelblogs.herokuapp.com/images/13.jpg" alt=""
-                                    class="side-post-image">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Why Some People Don’t Feel Lonely <br>
-                                    <small>
-                                        <span>
-                                            <i class="fa fa-user" style="font-size: 10px;"></i> 23 August 2021
-                                        </span>
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </a>
-                    <a href="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="http://laravelblogs.herokuapp.com/images/13.jpg" alt=""
-                                    class="side-post-image">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Why Some People Don’t Feel Lonely <br>
-                                    <small>
-                                        <span>
-                                            <i class="fa fa-user" style="font-size: 10px;"></i> 23 August 2021
-                                        </span>
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </a>
+                    {% endfor %}
                 </div>
-                <div class="card p-3 row mt-2">
+                <div class="card p-3 row mt-2 mb-3">
                     <h5>About</h5>
                     <div class="col-md-12">
                         <p>
-                            This is a Blog Content Management System Made With PHP Laravel Framework, Javascript,
-                            Bootstrap......Enjoy :)
+                            Personal blogging website where you can create and share your opinions and other users can read and comment on them
                         </p>
                     </div>
                 </div>
