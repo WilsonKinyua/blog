@@ -174,7 +174,7 @@ a:focus {
   background: #032c31;
 }
 
-.footer p {
+.footer p a {
   margin: 15px;
   color: white;
   text-transform: uppercase;
