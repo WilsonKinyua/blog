@@ -258,3 +258,17 @@ def update_post_image(id):
         db.session.commit()
         flash('You have successfully uploaded a post image', 'success')
         return redirect(url_for('main.profile', username=current_user.username))
+
+
+# search posts
+@main.route('/search', methods=['GET', 'POST'])
+def search():
+    """
+        View search function that returns the search page and its data
+    """
+    # get the query string from the search form
+    query = request.args.get('query')
+    # search for the query string
+    posts = Post.get_posts_by_query(query)
+    # return the search results
+    return render_template('search.html', posts=posts, query=query)

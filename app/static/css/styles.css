@@ -16,6 +16,7 @@ body {
 .text-underline {
   text-decoration: underline;
 }
+
 .btn-default {
   margin-top: 10px;
 }
@@ -55,6 +56,9 @@ a:focus {
   border-radius: 20px;
   padding: 7px;
 }
+.bg-lightdark {
+  background-color: #dbdbdb;
+}
 
 /* navbar */
 .navbar-brand {
@@ -63,8 +67,11 @@ a:focus {
   text-transform: uppercase;
   font-family: "Lobster", cursive;
 }
+.nav-link:hover{
+  color: var(--main-color);
+}
 .navbar-brand:hover {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .navbar-expand-lg {
   background: #02515c;

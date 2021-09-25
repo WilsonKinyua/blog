@@ -126,7 +126,12 @@ class Post(db.Model):
     def get_comments(self):
         comments = Comment.query.filter_by(post_id=self.id)
         return comments
+    # search for posts from query string
 
+    @classmethod
+    def get_posts_by_query(cls, query):
+        posts = Post.query.filter(Post.title.ilike('%' + query + '%'))
+        return posts
     # function to update specific post by id
     # def update_post(self):
     #     db.session.commit()
