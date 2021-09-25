@@ -13,6 +13,9 @@ body {
 .headings {
   font-family: "Merienda", cursive;
 }
+.text-underline {
+  text-decoration: underline;
+}
 .btn-default {
   margin-top: 10px;
 }

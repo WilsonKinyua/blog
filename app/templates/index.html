@@ -59,7 +59,7 @@
                         <div class="col-md-12 categories">
                             <h5>Categories</h5>
                             {% for category in categories %}
-                            <a class="btn btn-sm btn-outline-dark" href="{{ category.url }}">{{ category.name }}</a>
+                            <a class="btn btn-sm btn-outline-dark" href="{{ url_for('main.filter_posts',id=category.id) }}">{{ category.name }}</a>
                             {% endfor %}
                             <!-- <a class="btn btn-sm btn-outline-dark">Business</a> -->
                         </div>

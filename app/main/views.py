@@ -51,6 +51,19 @@ def single_post(id):
     comments = Comment.get_comments_by_post(post.id)
     return render_template('single_post.html', post=post, form=form, comments=comments)
 
+
+# filter posts by category
+@main.route('/category/<int:id>')
+def filter_posts(id):
+    """
+        View posts page function that returns the posts filtered by category
+    """
+    # get category by id
+    category = Category.query.filter_by(id=id).first()
+    # get all posts by category
+    posts = Post.get_post_by_category(category.id)
+    return render_template('posts.html', posts=posts, category=category)
+
 # profile page
 
 
