@@ -31,15 +31,25 @@ def index():
 # single post
 
 
-@main.route('/post/<int:id>')
+@main.route('/post/<int:id>', methods=['GET', 'POST'])
 def single_post(id):
     """
         View post page function that returns the post details page and its data
     """
     # get post by id
     post = Post.get_post(id)
-
-    return render_template('single_post.html', post=post)
+    # add comment form
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(content=form.content.data,
+                          user_id=current_user.id, post_id=post.id)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been posted!', 'success')
+        return redirect(url_for('.single_post', id=post.id))
+    # get all comments
+    comments = Comment.get_comments_by_post(post.id)
+    return render_template('single_post.html', post=post, form=form, comments=comments)
 
 # profile page
 
