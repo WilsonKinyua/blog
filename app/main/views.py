@@ -6,6 +6,9 @@ from .. import db, photos
 from .forms import ProfileForm, CommentForm, CategoryForm, PasswordForm
 from slugify import slugify
 from ..requests import get_quotes
+# import cloudinary
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
 
 
 # homepage
@@ -89,9 +92,17 @@ def update_pic(username):
     """
     user = User.query.filter_by(username=username).first()
     if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
+
+        # upload image to cloudinary to specific folder of user
+        # image_url = upload(request.files['photo'], folder=str(user.id))['url']
+        image_url = upload(request.files['photo'])['url']
+        # image_url = upload(
+        #     request.files['photo'], folder=current_user.username)['url']
+        # image_url = upload(request.files['photo'])['url']
+
+        # filename = photos.save(request.files['photo'])
+        # path = f'photos/{filename}'
+        user.profile_pic_path = image_url
         db.session.commit()
         flash('You have successfully uploaded a profile picture', 'success')
         return redirect(url_for('main.profile', username=username))
@@ -188,9 +199,13 @@ def update_post_image(id):
     """
     post = Post.query.filter_by(id=id).first()
     if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        post.image_path = path
+        # upload image to cloudinary to specific folder of posts folder
+        # image_url = upload(
+        #     request.files['photo'], folder=f'posts/{post.id}')['url']
+        image_url = upload(request.files['photo'])['url']
+        # filename = photos.save(request.files['photo'])
+        # path = f'photos/{filename}'
+        post.image_path = image_url
         db.session.commit()
         flash('You have successfully uploaded a post image', 'success')
         return redirect(url_for('main.profile', username=current_user.username))

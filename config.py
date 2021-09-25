@@ -1,4 +1,5 @@
 import os
+import cloudinary
 
 
 class Config:
@@ -6,6 +7,13 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
+
+    # cloudinary config
+    cloudinary.config(
+        cloud_name=os.environ.get('CLOUD_NAME'),
+        api_key=os.environ.get('API_KEY'),
+        api_secret=os.environ.get('API_SECRET')
+    )
 
     #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'

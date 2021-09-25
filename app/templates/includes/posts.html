@@ -19,7 +19,8 @@
             <td>{{ loop.index }}</td>
             <td>
                 {% if post.image_path %}
-                <img src="{{url_for('static',filename=post.image_path)}}" alt="{{ post.title }}" class="img-fluid">
+                <!-- <img src="{{url_for('static',filename=post.image_path)}}" alt="{{ post.title }}" class="img-fluid"> -->
+                <img src="{{post.image_path}}" alt="{{ post.title }}" class="img-fluid">
                 {% else %}
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
                     alt="" class="img-fluid">
