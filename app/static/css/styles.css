@@ -125,6 +125,12 @@ a:focus {
   line-height: 26px;
 }
 
+.post-card img {
+  border-radius: 5px 5px 0 0;
+  height: 200px;
+  width: 100%;
+}
+
 /* search button */
 
 /* .search input {
@@ -140,6 +146,7 @@ a:focus {
 /* side post */
 .side-post-image {
   height: 70px;
+  width: 100px;
   border-radius: 5px;
 }
 

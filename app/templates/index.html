@@ -68,7 +68,7 @@
                 <div class="card p-2 row mt-3 tops">
                     <h5>TOP POSTS</h5>
                     {% for post in latest_posts %}
-                    <a href="">
+                    <a href="{{ url_for('main.single_post',id=post.id)}}">
                         <hr>
                         <div class="row">
                             <div class="col-md-4">

@@ -28,8 +28,22 @@ def index():
 
     return render_template('index.html', posts=posts, categories=categories, quote=quote, latest_posts=latest_posts)
 
+# single post
+
+
+@main.route('/post/<int:id>')
+def single_post(id):
+    """
+        View post page function that returns the post details page and its data
+    """
+    # get post by id
+    post = Post.get_post(id)
+
+    return render_template('single_post.html', post=post)
 
 # profile page
+
+
 @main.route('/profile/<username>', methods=['GET', 'POST'])
 def profile(username):
     """

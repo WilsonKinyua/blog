@@ -2,7 +2,7 @@
 {% macro displayPosts(posts_list) %}
 {% for post in posts_list %}
 <div class="col-md-6">
-    <div class="card mb-4">
+    <div class="card mb-4 post-card">
         <!-- check if post image exists -->
         {% if post.image_path %}
         <img src="{{ post.image_path }}" class="card-img-top" alt="{{ post.category.name }}">
@@ -10,7 +10,7 @@
         <img class="card-img-top" src="https://www.freeiconspng.com/uploads/no-image-icon-11.PNG" alt="{{ post.title }}">
         {% endif %}
         <div class="card-body text-center">
-            <a href="">
+            <a href="{{ url_for('main.single_post',id=post.id)}}">
                 <h6 class="fade-item">{{ post.category.name }}</h6>
                 <h5 class="">{{ post.title }}</h5>
                 <small>
