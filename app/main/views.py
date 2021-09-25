@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, abort, flash, request
 from . import main
 from flask_login import login_required, current_user
-from ..models import User, Role, Post, Comment, Category
+from ..models import Subscriber, User, Role, Post, Comment, Category
 from .. import db, photos
 from .forms import ProfileForm, CommentForm, CategoryForm, PasswordForm
 from slugify import slugify
@@ -296,3 +296,17 @@ def search():
     posts = Post.get_posts_by_query(query)
     # return the search results
     return render_template('search.html', posts=posts, query=query)
+
+
+# add users to subscribers list
+@main.route('/subscribe', methods=['GET', 'POST'])
+def subscribe():
+    """
+         subscribe function that subscribes the user to the post
+    """
+    email = request.args.get('email')
+    new_subscriber = Subscriber(email=email)
+    db.session.add(new_subscriber)
+    db.session.commit()
+    flash('Email submitted successfully', 'success')
+    return redirect(url_for('main.index'))
