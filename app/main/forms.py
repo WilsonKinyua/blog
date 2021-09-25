@@ -10,7 +10,7 @@ from wtforms import ValidationError
 class CommentForm(FlaskForm):
     content = TextAreaField('Leave a Comment', validators=[
         Required()], render_kw={"rows": "6"})
-    submit = SubmitField('Submit Comment')
+    submit = SubmitField('Submit')
 
 
 # subscriber form
