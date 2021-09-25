@@ -203,10 +203,10 @@ def new_post():
     #     db.session.commit()
 
     # sending emails to all users in subscribers table when a new post is created
-    subscribers = Subscriber.query.all()
-    for subscriber in subscribers:
-        send_email("New post Alert 😃", "emails/new_post", subscriber.email,
-                   user=subscriber, post=post)
+    # subscribers = Subscriber.query.all()
+    # for subscriber in subscribers:
+    #     send_email("New post Alert 😃", "emails/new_post", subscriber.email,
+    #                user=subscriber, post=post)
 
     flash('You have successfully created a new post. Proceed and upload the post photo image to display on homepage', 'success')
 
